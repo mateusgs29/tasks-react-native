@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Text, View, TouchableOpacity, FlatList } from 'react-native'
-import database from '../../config/firebaseconfig'
+import firebase from '../../config/firebaseconfig'
 import { FontAwesome } from '@expo/vector-icons'
 import styles from './style'
 
 export default function Task({ navigation }) {
   const [task, setTask] = useState([])
   
+  const database = firebase.firestore()
+
   function deleteTask(id) {
     // pegar a coleção, depois a doc especifica para deletar
     database.collection("Tasks").doc(id).delete()

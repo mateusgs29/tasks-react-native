@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
 import { Text, TextInput, TouchableOpacity, View } from 'react-native'
 
-import database from '../../config/firebaseconfig'
+import firebase from '../../config/firebaseconfig'
 import styles from './style'
 
 
 export default function NewTask({ navigation }) {
   const [description, setDescription] = useState(null)
+
+  const database = firebase.firestore()
 
   function addTask() {
     database.collection("Tasks").add({
