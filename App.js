@@ -4,13 +4,29 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Task from './src/views/Task';
 import NewTask from './src/views/NewTask';
 import Details from './src/views/Details';
+import Login from './src/views/Login';
+import NewUser from './src/views/NewUser';
 
 const Stack = createNativeStackNavigator()
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Task">
+      <Stack.Navigator initialRouteName="Login">
+      <Stack.Screen 
+          name="Login" 
+          component={Login}
+          options={{
+            headerTintColor: "#f92e6a"
+          }}
+        />
+        <Stack.Screen 
+          name="NewUser" 
+          component={NewUser}
+          options={{
+            headerTintColor: "#f92e6a"
+          }}
+        />
         <Stack.Screen 
           name="Task" 
           component={Task}
