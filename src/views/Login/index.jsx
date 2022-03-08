@@ -7,15 +7,29 @@ import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 export default function Login({ navigation }) {
   const [email, setEmail] = useState("")
-  const [senha, setSenha] = useState("")
+  const [password, setPassword] = useState("")
   const [errorLogin, setErrorLogin] = useState(false)
   
   const loginFirebase = () => {
-
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        navigation.navigate("Task", { idUser: user.uid })
+      })
+      .catch((error) => {
+        setErrorLogin(true)
+        console.log(error)
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      });
   }
 
   useEffect(() => {
-
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        navigation.navigate("Task", { idUser: user.uid })
+      } 
+    })
   }, [])
 
   return (
@@ -36,8 +50,8 @@ export default function Login({ navigation }) {
         secureTextEntry
         placeholder="Enter your password"
         type="text"
-        value={senha}
-        onChangeText={(text) => setSenha(text)}
+        value={password}
+        onChangeText={(text) => setPassword(text)}
       />
       {errorLogin && (
           <View style={styles.contentAlert}>
@@ -46,8 +60,9 @@ export default function Login({ navigation }) {
           </View>
       )}
       <TouchableOpacity
-        disabled={email === "" || senha === ""}
+        disabled={email === "" || password === ""}
         style={styles.buttonLogin}
+        onPress={loginFirebase}
       >
         <Text style={styles.textButtonLogin}>Login</Text>  
       </TouchableOpacity>
@@ -57,7 +72,7 @@ export default function Login({ navigation }) {
           style={styles.linkSubscribe}
           onPress={() => navigation.navigate("NewUser")}
         >
-          Subscribe now
+          subscribe now
         </Text>
       </Text>
     </KeyboardAvoidingView>
