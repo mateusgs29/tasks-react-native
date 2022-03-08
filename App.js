@@ -17,21 +17,22 @@ export default function App() {
           name="Login" 
           component={Login}
           options={{
-            headerTintColor: "#f92e6a"
+            headerShown: false
           }}
         />
         <Stack.Screen 
           name="NewUser" 
           component={NewUser}
           options={{
-            headerTintColor: "#f92e6a"
+            headerShown: false
           }}
         />
         <Stack.Screen 
           name="Task" 
           component={Task}
           options={{
-            headerTintColor: "#f92e6a"
+            headerTintColor: "#f92e6a",
+            headerLeft: null
           }}
         />
         <Stack.Screen 
